@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+   Registration
+{% endblock title %}
+
+{% block sidenav %}
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarNav">
+         <ul class="navbar-nav">
+            <li class="nav-item">
+               <a class="nav-link" href="/">HOME</a>
+            </li>
+         </ul>
+      </div>
+   </nav>
+{% endblock sidenav %}
+
+{% block content %}
+<style>
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .registration-form {
+        max-width: 400px;
+        width: 100%;
+    }
+</style>
+
+<div class="center-content">
+    <div class="registration-form">
+        <h1 class="text-center mb-4">User Registration Page</h1>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group row">
+                    <label for="{{ field.id_for_label }}" class="col-sm-4 col-form-label text-right">{{ field.label }}</label>
+                    <div class="col-sm-8">
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </div>
+
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+    </div>
+</div>
+{% endblock content %}
